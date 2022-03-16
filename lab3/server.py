@@ -1,9 +1,11 @@
+#!/usr/bin/python3
+
 import pickle
 import socket
 
 client_count = 1
 sock_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock_server.bind(("",4364))
+sock_server.bind(("",9889))
 sock_server.listen(client_count)
 print("Started listening for %i clients" % client_count)
 sock_client,address_client = sock_server.accept()
@@ -48,16 +50,16 @@ for i in range(len(matrix_received)):
 
 row_error = 0
 col_error = 0
-l = 0
-m = 0
-for k in range(len(row_parity_calculated)):
-    if(row_parity_calculated[l] != row_parity_original[l]):
-       row_error = l
-    l = l + 1   
-for k in range(len(col_parity_calculated)):
-    if(col_parity_calculated[m] != column_parity_original[m]):
-       col_error = m
-    m = m + 1
+r = 0
+c = 0
+for i in range(len(row_parity_calculated)):
+    if(row_parity_calculated[r] != row_parity_original[r]):
+       row_error = r
+    r = r + 1   
+for i in range(len(col_parity_calculated)):
+    if(col_parity_calculated[c] != column_parity_original[c]):
+       col_error = c
+    c = c + 1
 
 corrected_matrix = matrix_received
 if(corrected_matrix[row_error][col_error] == 1):

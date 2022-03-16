@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import socket
 
 port_server = 4364
