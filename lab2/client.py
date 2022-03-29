@@ -1,32 +1,52 @@
 #!/usr/bin/python3
 
-from itertools import count
+import pickle
 import socket
-import random
+import time
+      
+sock_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock_client.connect(("127.0.0.1", 9889))
 
-port_client = 4364
-sock_client = socket.socket()
-sock_client.connect(("127.0.0.1", port_client))
+matrix_original = [[0, 1, 0, 0], [0, 1, 0, 0], [0, 0, 1, 1], [0, 0, 0, 0]]
+row_parse = []
+column_parse = []
 
-random_count = random.randint(25, 100)
-random_set = [random.randint(1, 100) for i in range(random_count)]
-# print(random_set)
+for row in matrix_original:
+    count = 0
+    for bit in row:
+        if bit == 1:
+            count = count + 1
+    if count % 2 == 0:
+        column_parse.append(0)
+    else:
+        column_parse.append(1)
 
-sock_client.send(str(random_set).encode())
+for i in range(len(matrix_original)):
+    count = 0
+    for j in range(len(matrix_original)):
+        if matrix_original[j][i] == 1:
+            count = count + 1
+    if count % 2 == 0:
+        row_parse.append(0)
+    else:
+        row_parse.append(1)
 
-final_set = eval(sock_client.recv(1024).decode())
-duplicate_set = []
+matrix_modified = [[0, 1, 0, 0], [0, 0, 0, 0], [0, 0, 1, 1], [0, 0, 0, 0]]
 
-for element in final_set:
-    if random_set.count(element) > 1:
-        duplicate_set.append(element)
+data1 = pickle.dumps(matrix_modified)
+sock_client.send(data1)
+time.sleep(1)
 
-print("The original set of numbers randomly generated:")
-print(random_set)
-print()
-print("The final set without any repeated numbers is:")
-print(final_set)
-print()
-print("The set of repeated numbers is:")
-print(duplicate_set)
-sock_client.close()
+data2 = pickle.dumps(row_parse)
+sock_client.send(data2)
+time.sleep(1)
+
+data3 = pickle.dumps(column_parse)
+sock_client.send(data3)
+time.sleep(1)
+
+matrix = pickle.loads(sock_client.recv(1024))
+print("The recovered matrix is:")
+print(matrix)
+
+sock_client.close() 

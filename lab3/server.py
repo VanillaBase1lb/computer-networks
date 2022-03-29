@@ -32,18 +32,18 @@ for i in range(len(matrix_received)):
         if(matrix_received[i][j] == 1):
             count = count + 1
 
-    if(count % 2 != 0):
+    if(count % 2 == 0):
         row_parity_calculated.append(0)
     else:
         row_parity_calculated.append(1)
 
-for i in range(len(matrix_received)):
+for i in range(len(matrix_received[0])):
     count = 0
-    for j in range(len(matrix_received[i])):
+    for j in range(len(matrix_received)):
         if(matrix_received[j][i] == 1):
             count = count + 1
 
-    if(count % 2 != 0):
+    if(count % 2 == 0):
         col_parity_calculated.append(0)
     else:
         col_parity_calculated.append(1)   
