@@ -5,20 +5,16 @@ import ftplib
 ftp = ftplib.FTP('')
 ftp.connect("localhost",8099)
 ftp.login()
-ftp.cwd("sem6") #replace with your directory
+ftp.cwd(".") # current directory in the FTP server
 ftp.retrlines("LIST")
 
-def uploadFile():
- filename = "client.py" #replace with your file in your home folder
- ftp.storbinary("STOR "+filename, open(filename, "rb"))
- ftp.quit()
+# upload exapmle1.txt to the FTP server
+filename = "example1.txt" # upload this file from current directory
+ftp.storbinary("STOR " + filename, open(filename, "rb"))
 
-def downloadFile():
- filename = "resume.pdf" #replace with your file in the directory ('directory_name')
- localfile = open(filename, "wb")
- ftp.retrbinary("RETR " + filename, localfile.write, 1024)
- ftp.quit()
- localfile.close()
-
-uploadFile()
-# downloadFile()
+# download example2.txt from the FTP server
+filename = "example2.txt" # downlod this file from cwd in the FTP server
+localfile = open(filename, "wb")
+ftp.retrbinary("RETR " + filename, localfile.write, 1024)
+ftp.quit()
+localfile.close()

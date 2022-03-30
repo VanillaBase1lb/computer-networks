@@ -4,9 +4,10 @@ import pyftpdlib.authorizers
 import pyftpdlib.handlers
 import pyftpdlib.servers
 
+server_directory = "." # start FTP server from this directory
+
 auth = pyftpdlib.authorizers.DummyAuthorizer()
-auth.add_anonymous("/mnt/storage", perm="elradfmw")
-auth.add_user("yuvraj", "password", "/mnt/storage", perm="elradfmw")
+auth.add_anonymous(server_directory, perm="elradfmw")
 
 handler = pyftpdlib.handlers.FTPHandler
 handler.authorizer = auth
