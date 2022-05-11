@@ -85,7 +85,7 @@ void printPath(int parent[], int j)
     cout << " ->" << j;
 }
 
-int printSPT(int dist[], int n, int parent[])
+void printSPT(int dist[], int n, int parent[])
 {
     int src = 0;
     cout << "Vertex\t  Distance  \t\tPath";
