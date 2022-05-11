@@ -110,6 +110,8 @@ vector<int> Dijkstra(vector<vector<pair<int, int>>> &adjList, int &source)
         dist.push_back(10000000);
     }
 
+    // Yuvraj Mishra
+    // 19XJ1A0576
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
 
     pq.push(make_pair(source, 0));
@@ -170,3 +172,6 @@ int main(int argc, char *argv[])
 
     return 0;
 }
+
+// Yuvraj Mishra
+// 19XJ1A0576
